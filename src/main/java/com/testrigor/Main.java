@@ -9,7 +9,7 @@ public class Main {
 	 *
 	 * Check README
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Map<String, String> criminals = new HashMap<>();
 		criminals.put("Paul White Jr.", null);
 		criminals.put("Paul White", "Roger Night, Peter Llong Jr.");
@@ -17,12 +17,20 @@ public class Main {
 		criminals.put("Red Fortress", "Roger Rabbit, Ross Winter");
 		criminals.put("Redford Fort", "Red Strong, Red Fort");
 
+		BinaryTree binaryTree = new BinaryTree();
+		binaryTree.add("Paul White Jr.", null);
+		binaryTree.add("Paul White", "Roger Night, Peter Llong Jr.");
+		binaryTree.add("Roger Fedexer", "Rob Ford, Pete Lord, Roger McWire");
+		binaryTree.add("Red Fortress", "Roger Rabbit, Ross Winter");
+		binaryTree.add("Redford Fort", "Red Strong, Red Fort");
+		binaryTree.print();
+
 		// Add as many as you want
-		System.out.println(findCriminal(criminals, "Red "));
-		System.out.println(findCriminal(criminals, "Roger"));
-		System.out.println(findCriminal(criminals, "Red"));
-		System.out.println(findCriminal(criminals, null));
-		System.out.println(findCriminal(criminals, "Ford"));
+//		System.out.println(findCriminal(criminals, "Red "));
+//		System.out.println(findCriminal(criminals, "Roger"));
+//		System.out.println(findCriminal(criminals, "Red"));
+//		System.out.println(findCriminal(criminals, null));
+//		System.out.println(findCriminal(criminals, "Ford"));
 	}
 
 	/**
