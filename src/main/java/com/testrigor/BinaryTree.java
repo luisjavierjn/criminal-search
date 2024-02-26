@@ -38,7 +38,7 @@ public class BinaryTree {
     private void traverseInOrder(Node node) {
         if (node != null) {
             traverseInOrder(node.getLeft());
-            System.out.print(node);
+            System.out.println(node);
             traverseInOrder(node.getRight());
         }
     }
@@ -61,5 +61,46 @@ public class BinaryTree {
 
     public boolean containsNode(String name) throws Exception {
         return containsNodeRecursive(root, name);
+    }
+
+    private boolean findBestMatchCriminal(BestMatch bestMatch, Node current, String possibleName) throws Exception {
+        if(possibleName == null || possibleName.isEmpty()) {
+            throw new Exception("possibleName cannot be null or empty");
+        }
+        possibleName = possibleName.toLowerCase();
+        if (current == null) {
+            return false;
+        }
+        String actualName = current.getKey();
+        int score;
+        if (actualName.contains(possibleName)) {
+            boolean exactMatch = actualName.equals(possibleName);
+            score = exactMatch ? 3 : 2;
+            if(exactMatch) {
+                bestMatch.setScore(score);
+                bestMatch.setMatch(current.toString());
+                return true;
+            } else {
+                if (score > bestMatch.getScore()) {
+                    bestMatch.setScore(score);
+                    bestMatch.setMatch(current.toString());
+                }
+            }
+        } else if (current.getValue() != null && current.getValue().contains(possibleName)) {
+            score = 1;
+            if (score > bestMatch.getScore()) {
+                bestMatch.setScore(score);
+                bestMatch.setMatch(current.toString());
+            }
+        }
+
+        return  findBestMatchCriminal(bestMatch, current.getLeft(), possibleName) ||
+                findBestMatchCriminal(bestMatch, current.getRight(), possibleName);
+    }
+
+    public BestMatch findCriminal(String possibleName) throws Exception {
+        BestMatch bestMatch = new BestMatch();
+        findBestMatchCriminal(bestMatch, root, possibleName);
+        return bestMatch;
     }
 }

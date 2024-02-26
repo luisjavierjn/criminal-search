@@ -25,12 +25,16 @@ public class Main {
 		binaryTree.add("Redford Fort", "Red Strong, Red Fort");
 		binaryTree.print();
 
-		System.out.println(binaryTree.containsNode("Paul White Jr."));
+		//System.out.println(binaryTree.containsNode("Paul White Jr."));
 
 		// Add as many as you want
-//		System.out.println(findCriminal(criminals, "Red "));
-//		System.out.println(findCriminal(criminals, "Roger"));
-//		System.out.println(findCriminal(criminals, "Red"));
+		System.out.println(findCriminal(binaryTree, "paul White"));
+		System.out.println(findCriminal(binaryTree, "Roger"));
+		System.out.println(findCriminal(binaryTree, "Ross"));
+		System.out.println(findCriminal(binaryTree, "white jr."));
+//		System.out.println(findCriminal(binaryTree, "Red "));
+//		System.out.println(findCriminal(binaryTree, "Roger"));
+//		System.out.println(findCriminal(binaryTree, "Red"));
 //		System.out.println(findCriminal(criminals, null));
 //		System.out.println(findCriminal(criminals, "Ford"));
 	}
@@ -41,7 +45,9 @@ public class Main {
 	 * @param possibleName
 	 * @return
 	 */
-	public static String findCriminal(BinaryTree criminals, String possibleName) {
-		return null;
+	public static String findCriminal(BinaryTree criminals, String possibleName) throws Exception {
+		System.out.print("Searching: " + possibleName + " => ");
+		BestMatch bestMatch = criminals.findCriminal(possibleName);
+		return bestMatch.toString();
 	}
 }

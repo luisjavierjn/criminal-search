@@ -39,9 +39,9 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
+        return "Node {" +
                 "key='" + key + '\'' +
                 ", value='" + value + '\'' +
-                "}\n";
+                '}';
     }
 }
