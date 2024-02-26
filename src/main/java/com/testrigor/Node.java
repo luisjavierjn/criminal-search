@@ -1,8 +1,8 @@
 package com.testrigor;
 
 public class Node {
-    private String key;
-    private String value;
+    private final String key;
+    private final String value;
     private Node left;
     private Node right;
 
