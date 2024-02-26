@@ -3,21 +3,18 @@ package com.testrigor;
 public class BinaryTree {
     private Node root;
 
-    private Node addRecursive(Node current, String key, String value) throws Exception {
+    private Node addRecursive(Node current, String key, String value) {
         if(key == null || key.isEmpty()) {
-            throw new Exception("key cannot be null or empty");
-        }
-        key = key.toLowerCase();
-        if(value != null && !value.isEmpty()) {
-            value = value.toLowerCase();
+            System.out.println("key cannot be null or empty");
+            return null;
         }
         if (current == null) {
             return new Node(key, value);
         }
 
-        if (key.compareTo(current.getKey()) < 0) {
+        if (key.toLowerCase().compareTo(current.getKey().toLowerCase()) < 0) {
             current.setLeft(addRecursive(current.getLeft(), key, value));
-        } else if (key.compareTo(current.getKey()) > 0) {
+        } else if (key.toLowerCase().compareTo(current.getKey().toLowerCase()) > 0) {
             current.setRight(addRecursive(current.getRight(), key, value));
         } else {
             // value already exists
@@ -27,7 +24,7 @@ public class BinaryTree {
         return current;
     }
 
-    public void add(String key, String value) throws Exception {
+    public void add(String key, String value) {
         root = addRecursive(root, key, value);
     }
 
@@ -43,38 +40,38 @@ public class BinaryTree {
         }
     }
 
-    private boolean containsNodeRecursive(Node current, String name) throws Exception {
+    private boolean containsNodeRecursive(Node current, String name) {
         if(name == null || name.isEmpty()) {
-            throw new Exception("name cannot be null or empty");
+            System.out.println("name cannot be null or empty");
+            return false;
         }
-        name = name.toLowerCase();
         if (current == null) {
             return false;
         }
-        if (name.compareTo(current.getKey()) == 0) {
+        if (name.toLowerCase().compareTo(current.getKey().toLowerCase()) == 0) {
             return true;
         }
-        return name.compareTo(current.getKey()) < 0
+        return name.toLowerCase().compareTo(current.getKey().toLowerCase()) < 0
                 ? containsNodeRecursive(current.getLeft(), name)
                 : containsNodeRecursive(current.getRight(), name);
     }
 
-    public boolean containsNode(String name) throws Exception {
+    public boolean containsNode(String name) {
         return containsNodeRecursive(root, name);
     }
 
-    private boolean findBestMatchCriminal(BestMatch bestMatch, Node current, String possibleName) throws Exception {
+    private boolean findBestMatchCriminal(BestMatch bestMatch, Node current, String possibleName) {
         if(possibleName == null || possibleName.isEmpty()) {
-            throw new Exception("possibleName cannot be null or empty");
+            System.out.println("possibleName cannot be null or empty");
+            return false;
         }
-        possibleName = possibleName.toLowerCase();
         if (current == null) {
             return false;
         }
-        String actualName = current.getKey();
+        String actualName = current.getKey().toLowerCase();
         int score;
-        if (actualName.contains(possibleName)) {
-            boolean exactMatch = actualName.equals(possibleName);
+        if (actualName.contains(possibleName.toLowerCase())) {
+            boolean exactMatch = actualName.equals(possibleName.toLowerCase());
             score = exactMatch ? 3 : 2;
             if(exactMatch) {
                 bestMatch.setScore(score);
@@ -86,7 +83,8 @@ public class BinaryTree {
                     bestMatch.setMatch(current.toString());
                 }
             }
-        } else if (current.getValue() != null && current.getValue().contains(possibleName)) {
+        } else if (current.getValue() != null &&
+                current.getValue().toLowerCase().contains(possibleName.toLowerCase())) {
             score = 1;
             if (score > bestMatch.getScore()) {
                 bestMatch.setScore(score);
@@ -98,7 +96,7 @@ public class BinaryTree {
                 findBestMatchCriminal(bestMatch, current.getRight(), possibleName);
     }
 
-    public BestMatch findCriminal(String possibleName) throws Exception {
+    public BestMatch findCriminal(String possibleName) {
         BestMatch bestMatch = new BestMatch();
         findBestMatchCriminal(bestMatch, root, possibleName);
         return bestMatch;

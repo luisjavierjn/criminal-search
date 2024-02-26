@@ -18,25 +18,22 @@ public class Main {
 		criminals.put("Redford Fort", "Red Strong, Red Fort");
 
 		BinaryTree binaryTree = new BinaryTree();
-		binaryTree.add("Paul White Jr.", null);
-		binaryTree.add("Paul White", "Roger Night, Peter Llong Jr.");
-		binaryTree.add("Roger Fedexer", "Rob Ford, Pete Lord, Roger McWire");
-		binaryTree.add("Red Fortress", "Roger Rabbit, Ross Winter");
-		binaryTree.add("Redford Fort", "Red Strong, Red Fort");
+		criminals.forEach(binaryTree::add);
 		binaryTree.print();
-
-		//System.out.println(binaryTree.containsNode("Paul White Jr."));
+		System.out.println();
 
 		// Add as many as you want
 		System.out.println(findCriminal(binaryTree, "paul White"));
 		System.out.println(findCriminal(binaryTree, "Roger"));
 		System.out.println(findCriminal(binaryTree, "Ross"));
 		System.out.println(findCriminal(binaryTree, "white jr."));
-//		System.out.println(findCriminal(binaryTree, "Red "));
-//		System.out.println(findCriminal(binaryTree, "Roger"));
-//		System.out.println(findCriminal(binaryTree, "Red"));
-//		System.out.println(findCriminal(criminals, null));
-//		System.out.println(findCriminal(criminals, "Ford"));
+		System.out.println(findCriminal(binaryTree, "Red "));
+		System.out.println(findCriminal(binaryTree, "Roger"));
+		System.out.println(findCriminal(binaryTree, "Red"));
+		System.out.println(findCriminal(binaryTree, null));
+		System.out.println(findCriminal(binaryTree, "Ford"));
+		System.out.println(findCriminal(binaryTree, ""));
+		System.out.println(findCriminal(binaryTree, "Gregory"));
 	}
 
 	/**
@@ -48,6 +45,6 @@ public class Main {
 	public static String findCriminal(BinaryTree criminals, String possibleName) throws Exception {
 		System.out.print("Searching: " + possibleName + " => ");
 		BestMatch bestMatch = criminals.findCriminal(possibleName);
-		return bestMatch.toString();
+		return bestMatch.getScore() == 0 ? "possibleName not found" : bestMatch.toString();
 	}
 }
