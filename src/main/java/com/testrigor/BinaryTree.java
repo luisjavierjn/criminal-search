@@ -5,7 +5,6 @@ public class BinaryTree {
 
     private Node addRecursive(Node current, String key, String value) {
         if(key == null || key.isEmpty()) {
-            System.out.println("key cannot be null or empty");
             return null;
         }
         if (current == null) {
@@ -42,7 +41,6 @@ public class BinaryTree {
 
     private boolean containsNodeRecursive(Node current, String name) {
         if(name == null || name.isEmpty()) {
-            System.out.println("name cannot be null or empty");
             return false;
         }
         if (current == null) {
@@ -62,7 +60,6 @@ public class BinaryTree {
 
     private boolean findBestMatchCriminal(BestMatch bestMatch, Node current, String possibleName) {
         if(possibleName == null || possibleName.isEmpty()) {
-            System.out.println("possibleName cannot be null or empty");
             return false;
         }
         if (current == null) {
@@ -75,20 +72,21 @@ public class BinaryTree {
             score = exactMatch ? 3 : 2;
             if(exactMatch) {
                 bestMatch.setScore(score);
-                bestMatch.setMatch(current.toString());
+                bestMatch.setName(current.getKey());
+                bestMatch.setAliases(current.getValue());
                 return true;
-            } else {
-                if (score > bestMatch.getScore()) {
-                    bestMatch.setScore(score);
-                    bestMatch.setMatch(current.toString());
-                }
+            } else if (score > bestMatch.getScore()) {
+                bestMatch.setScore(score);
+                bestMatch.setName(current.getKey());
+                bestMatch.setAliases(current.getValue());
             }
         } else if (current.getValue() != null &&
                 current.getValue().toLowerCase().contains(possibleName.toLowerCase())) {
             score = 1;
             if (score > bestMatch.getScore()) {
                 bestMatch.setScore(score);
-                bestMatch.setMatch(current.toString());
+                bestMatch.setName(current.getKey());
+                bestMatch.setAliases(current.getValue());
             }
         }
 

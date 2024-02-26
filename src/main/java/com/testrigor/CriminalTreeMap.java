@@ -10,7 +10,6 @@ public class CriminalTreeMap extends AbstractMap<String, String> {
 
     private Node addRecursive(Node current, String key, String value) {
         if(key == null || key.isEmpty()) {
-            System.out.println("key cannot be null or empty");
             return null;
         }
         if (current == null) {
@@ -52,7 +51,6 @@ public class CriminalTreeMap extends AbstractMap<String, String> {
 
     private boolean findBestMatchCriminal(BestMatch bestMatch, Node current, String possibleName) {
         if(possibleName == null || possibleName.isEmpty()) {
-            System.out.println("possibleName cannot be null or empty");
             return false;
         }
         if (current == null) {
@@ -65,20 +63,21 @@ public class CriminalTreeMap extends AbstractMap<String, String> {
             score = exactMatch ? 3 : 2;
             if(exactMatch) {
                 bestMatch.setScore(score);
-                bestMatch.setMatch(current.toString());
+                bestMatch.setName(current.getKey());
+                bestMatch.setAliases(current.getValue());
                 return true;
-            } else {
-                if (score > bestMatch.getScore()) {
-                    bestMatch.setScore(score);
-                    bestMatch.setMatch(current.toString());
-                }
+            } else if (score > bestMatch.getScore()) {
+                bestMatch.setScore(score);
+                bestMatch.setName(current.getKey());
+                bestMatch.setAliases(current.getValue());
             }
         } else if (current.getValue() != null &&
                 current.getValue().toLowerCase().contains(possibleName.toLowerCase())) {
             score = 1;
             if (score > bestMatch.getScore()) {
                 bestMatch.setScore(score);
-                bestMatch.setMatch(current.toString());
+                bestMatch.setName(current.getKey());
+                bestMatch.setAliases(current.getValue());
             }
         }
 
@@ -91,7 +90,18 @@ public class CriminalTreeMap extends AbstractMap<String, String> {
         String possibleName = (String) key;
         BestMatch bestMatch = new BestMatch();
         findBestMatchCriminal(bestMatch, root, possibleName);
-        return bestMatch.getScore() == 0 ? "No match" : bestMatch.getMatch();
+
+        if (bestMatch.getScore() > 0) {
+            StringBuilder result = new StringBuilder("First name: ");
+            result.append(bestMatch.getName()).append(". ");
+            if (bestMatch.getAliases() != null)
+                result.append("Aliases: ").append(bestMatch.getAliases());
+            else
+                result.append("No aliases found.");
+            return result.toString();
+        } else {
+            return "No match";
+        }
     }
 
     private void traverseInOrder(Node node, StringBuilder strBuilder) {
@@ -146,7 +156,7 @@ public class CriminalTreeMap extends AbstractMap<String, String> {
 
         @Override
         public String toString() {
-            return "Node{" +
+            return "Node {" +
                     "key='" + key + '\'' +
                     ", value='" + value + '\'' +
                     '}';
@@ -155,11 +165,12 @@ public class CriminalTreeMap extends AbstractMap<String, String> {
 
     private static class BestMatch {
         private int score;
-        private String match;
+        private String name;
+        private String aliases;
 
         public BestMatch() {
             this.score = 0;
-            this.match = "";
+            this.name = "";
         }
 
         public int getScore() {
@@ -170,19 +181,27 @@ public class CriminalTreeMap extends AbstractMap<String, String> {
             this.score = score;
         }
 
-        public String getMatch() {
-            return match;
+        public String getName() {
+            return name;
         }
 
-        public void setMatch(String match) {
-            this.match = match;
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getAliases() {
+            return aliases;
+        }
+
+        public void setAliases(String aliases) {
+            this.aliases = aliases;
         }
 
         @Override
         public String toString() {
             return "BestMath {" +
                     "score=" + score +
-                    ", match='" + match + '\'' +
+                    ", match='" + name + '\'' +
                     '}';
         }
     }

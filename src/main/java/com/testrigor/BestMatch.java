@@ -2,11 +2,13 @@ package com.testrigor;
 
 public class BestMatch {
     private int score;
-    private String match;
+    private String name;
+    private String aliases;
 
     public BestMatch() {
         this.score = 0;
-        this.match = "";
+        this.name = "";
+        this.aliases = "";
     }
 
     public int getScore() {
@@ -17,19 +19,27 @@ public class BestMatch {
         this.score = score;
     }
 
-    public String getMatch() {
-        return match;
+    public String getName() {
+        return name;
     }
 
-    public void setMatch(String match) {
-        this.match = match;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAliases() {
+        return aliases;
+    }
+
+    public void setAliases(String aliases) {
+        this.aliases = aliases;
     }
 
     @Override
     public String toString() {
         return "BestMath {" +
                 "score=" + score +
-                ", match='" + match + '\'' +
+                ", match='" + name + '\'' +
                 '}';
     }
 }

@@ -9,13 +9,16 @@ public class Main {
 	 *
 	 * Check README
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		Map<String, String> criminals = new HashMap<>();
 		criminals.put("Paul White Jr.", null);
 		criminals.put("Paul White", "Roger Night, Peter Llong Jr.");
 		criminals.put("Roger Fedexer", "Rob Ford, Pete Lord, Roger McWire");
 		criminals.put("Red Fortress", "Roger Rabbit, Ross Winter");
 		criminals.put("Redford Fort", "Red Strong, Red Fort");
+
+		System.out.println("\nHashMap");
+		criminals.forEach((k,v) -> System.out.println("key=" + k + ", value=" + v));
 
 		System.out.println("\nBinaryTree");
 		BinaryTree binaryTree = new BinaryTree();
@@ -28,7 +31,20 @@ public class Main {
 		System.out.println(criminalTreeMap);
 
 		// Add as many as you want
-		System.out.println("\nResultados de binaryTree");
+		System.out.println("\nResults of HashMap");
+		System.out.println(findCriminal(criminals, "paul White"));
+		System.out.println(findCriminal(criminals, "Roger"));
+		System.out.println(findCriminal(criminals, "Ross"));
+		System.out.println(findCriminal(criminals, "white jr."));
+		System.out.println(findCriminal(criminals, "Red "));
+		System.out.println(findCriminal(criminals, "Roger"));
+		System.out.println(findCriminal(criminals, "Red"));
+		System.out.println(findCriminal(criminals, null));
+		System.out.println(findCriminal(criminals, "Ford"));
+		System.out.println(findCriminal(criminals, ""));
+		System.out.println(findCriminal(criminals, "Gregory"));
+
+		System.out.println("\nResults of BinaryTree");
 		System.out.println(findCriminal(binaryTree, "paul White"));
 		System.out.println(findCriminal(binaryTree, "Roger"));
 		System.out.println(findCriminal(binaryTree, "Ross"));
@@ -42,20 +58,7 @@ public class Main {
 		System.out.println(findCriminal(binaryTree, "Gregory"));
 		System.out.println();
 
-		System.out.println("\nResultados de criminals");
-		System.out.println(findCriminal(criminals, "paul White"));
-		System.out.println(findCriminal(criminals, "Roger"));
-		System.out.println(findCriminal(criminals, "Ross"));
-		System.out.println(findCriminal(criminals, "white jr."));
-		System.out.println(findCriminal(criminals, "Red "));
-		System.out.println(findCriminal(criminals, "Roger"));
-		System.out.println(findCriminal(criminals, "Red"));
-		System.out.println(findCriminal(criminals, null));
-		System.out.println(findCriminal(criminals, "Ford"));
-		System.out.println(findCriminal(criminals, ""));
-		System.out.println(findCriminal(criminals, "Gregory"));
-
-		System.out.println("\nResultados de criminalTreeMap");
+		System.out.println("\nResults of CriminalTreeMap");
 		System.out.println(findCriminalNew(criminalTreeMap, "paul White"));
 		System.out.println(findCriminalNew(criminalTreeMap, "Roger"));
 		System.out.println(findCriminalNew(criminalTreeMap, "Ross"));
@@ -76,14 +79,23 @@ public class Main {
 	 * @param possibleName
 	 * @return
 	 */
-	public static String findCriminal(BinaryTree criminals, String possibleName) throws Exception {
-		System.out.print("Searching: " + possibleName + " => ");
+	public static String findCriminal(BinaryTree criminals, String possibleName) {
 		BestMatch bestMatch = criminals.findCriminal(possibleName);
-		return bestMatch.getScore() == 0 ? "possibleName not found" : bestMatch.toString();
+
+		if (bestMatch.getScore() > 0) {
+			StringBuilder result = new StringBuilder("First name: ");
+			result.append(bestMatch.getName()).append(". ");
+			if (bestMatch.getAliases() != null)
+				result.append("Aliases: ").append(bestMatch.getAliases());
+			else
+				result.append("No aliases found.");
+			return result.toString();
+		} else {
+			return "No match";
+		}
 	}
 
 	public static String findCriminalNew(Map<String, String> criminals, String possibleName) {
-		System.out.print("Searching: " + possibleName + " => ");
         return criminals.get(possibleName);
 	}
 
