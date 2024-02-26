@@ -1,10 +1,10 @@
 package com.testrigor;
 
 public class Node {
-    String key;
-    String value;
-    Node left;
-    Node right;
+    private String key;
+    private String value;
+    private Node left;
+    private Node right;
 
     Node(String key, String value) {
         this.key = key;

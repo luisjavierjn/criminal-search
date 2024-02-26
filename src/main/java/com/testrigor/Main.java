@@ -25,6 +25,8 @@ public class Main {
 		binaryTree.add("Redford Fort", "Red Strong, Red Fort");
 		binaryTree.print();
 
+		System.out.println(binaryTree.containsNode("Paul White Jr."));
+
 		// Add as many as you want
 //		System.out.println(findCriminal(criminals, "Red "));
 //		System.out.println(findCriminal(criminals, "Roger"));
@@ -39,7 +41,7 @@ public class Main {
 	 * @param possibleName
 	 * @return
 	 */
-	public static String findCriminal(Map<String, String> criminals, String possibleName) {
+	public static String findCriminal(BinaryTree criminals, String possibleName) {
 		return null;
 	}
 }

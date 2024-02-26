@@ -5,7 +5,7 @@ public class BinaryTree {
 
     private Node addRecursive(Node current, String key, String value) throws Exception {
         if(key == null || key.isEmpty()) {
-            throw new Exception("key cannot be null");
+            throw new Exception("key cannot be null or empty");
         }
         key = key.toLowerCase();
         if(value != null && !value.isEmpty()) {
@@ -41,5 +41,25 @@ public class BinaryTree {
             System.out.print(node);
             traverseInOrder(node.getRight());
         }
+    }
+
+    private boolean containsNodeRecursive(Node current, String name) throws Exception {
+        if(name == null || name.isEmpty()) {
+            throw new Exception("name cannot be null or empty");
+        }
+        name = name.toLowerCase();
+        if (current == null) {
+            return false;
+        }
+        if (name.compareTo(current.getKey()) == 0) {
+            return true;
+        }
+        return name.compareTo(current.getKey()) < 0
+                ? containsNodeRecursive(current.getLeft(), name)
+                : containsNodeRecursive(current.getRight(), name);
+    }
+
+    public boolean containsNode(String name) throws Exception {
+        return containsNodeRecursive(root, name);
     }
 }
